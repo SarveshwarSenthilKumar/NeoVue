@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NeoVue - Augmented Smart Glasses</title>
+  <link rel="icon" href="neovuelogo.png" type="image/png">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0a0a0a;
+      color: #f0f0f0;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    header {
+      background: rgba(10, 10, 10, 0.9);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 5%;
+      position: fixed;
+      width: 100%;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    header img {
+      height: 40px;
+      transition: transform 0.3s ease;
+    }
+
+    header img:hover {
+      transform: scale(1.05);
+    }
+
+    nav a {
+      margin-left: 2.5rem;
+      color: #d0d0d0;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      letter-spacing: 0.5px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    nav a:hover {
+      color: #00e6f6;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -5px;
+      left: 0;
+      background: linear-gradient(90deg, #00e6f6, #00ffa2);
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0 5%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, rgba(0, 230, 246, 0.1) 0%, rgba(10, 10, 10, 1) 70%);
+      z-index: -1;
+    }
+
+    .hero-content {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(to right, #00e6f6, #00ffa2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1.2;
+      letter-spacing: -0.5px;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: #b0b0b0;
+      max-width: 700px;
+      margin: 0 auto 2rem;
+    }
+
+    .section {
+      padding: 8rem 5%;
+      position: relative;
+    }
+
+    .section:nth-child(odd) {
+      background: rgba(15, 15, 15, 0.5);
+    }
+
+    .section-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section h2 {
+      font-size: 2.2rem;
+      margin-bottom: 3rem;
+      color: #fff;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section h2::after {
+      content: '';
+      position: absolute;
+      width: 60%;
+      height: 3px;
+      bottom: -10px;
+      left: 0;
+      background: linear-gradient(90deg, #00e6f6, #00ffa2);
+      border-radius: 3px;
+    }
+
+    .section ul {
+      list-style: none;
+      text-align: left;
+      margin-top: 2rem;
+    }
+
+    .section li {
+      margin-bottom: 1.5rem;
+      padding-left: 1.5rem;
+      position: relative;
+      color: #d0d0d0;
+      font-size: 1.1rem;
+    }
+
+    .section li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.6em;
+      width: 8px;
+      height: 8px;
+      background: #00e6f6;
+      border-radius: 50%;
+    }
+
+    .highlight-box {
+      background: rgba(0, 230, 246, 0.05);
+      border-left: 3px solid #00e6f6;
+      padding: 2rem;
+      margin: 3rem 0;
+      border-radius: 0 5px 5px 0;
+    }
+
+    footer {
+      background: #0a0a0a;
+      text-align: center;
+      padding: 3rem 5%;
+      font-size: 0.9rem;
+      color: #888;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    footer a {
+      color: #00e6f6;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    footer a:hover {
+      color: #00ffa2;
+    }
+
+    .contact-info {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2.5rem;
+      margin: 3rem 0;
+      flex-wrap: wrap;
+    }
+
+    .contact-info a {
+      color: #e0e0e0;
+      font-size: 1rem;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      transition: all 0.3s ease;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+    }
+
+    .contact-info a:hover {
+      color: #00e6f6;
+      background: rgba(0, 230, 246, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: linear-gradient(90deg, #00e6f6, #00ffa2);
+      color: #0a0a0a;
+      padding: 0.8rem 2rem;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      margin-top: 1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 230, 246, 0.3);
+    }
+
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0, 230, 246, 0.4);
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 1rem 5%;
+      }
+
+      nav a {
+        margin-left: 1.5rem;
+        font-size: 0.9rem;
+      }
+
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      .section {
+        padding: 5rem 5%;
+      }
+
+      .section h2 {
+        font-size: 1.8rem;
+      }
+
+      .contact-info {
+        gap: 1.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <img src="neovueicon.png" alt="NeoVue Icon">
+    <nav>
+      <a href="#problem">Vision</a>
+      <a href="#solution">Value</a>
+      <a href="#market">Market</a>
+      <a href="#skills">Development</a>
+      <a href="#goals">Strategy</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Redefining Reality with NeoVue Smart Glasses</h1>
+      <p>Augmented intelligence seamlessly integrated into your field of vision — the future of wearable technology</p>
+      <a href="#contact" class="cta-button">Explore Possibilities</a>
+    </div>
+  </section>
+
+  <section class="section" id="problem">
+    <div class="section-container">
+      <h2>The Vision</h2>
+      <ul>
+        <li>Redefining eyewear with built-in transparent screens visible only to the user</li>
+        <li>Smart glasses that integrate augmented reality, AI, and real-time utility</li>
+        <li>Displays notifications, directions, time, translations, and more in the user's vision</li>
+        <li>Features voice command, emergency collision detection, and live camera/microphone access</li>
+        <li>Designed for everyday wear—compatible with prescription lenses or non-corrective glasses</li>
+      </ul>
+      <div class="highlight-box">
+        "Augmenting Vision, Enhancing Reality."
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="solution">
+    <div class="section-container">
+      <h2>Why This Matters</h2>
+      <ul>
+        <li>Eliminates need to constantly check phones—hands-free access to digital life</li>
+        <li>Useful in emergencies—can automatically call for help upon sensing collisions</li>
+        <li>Enhances lives of users with disabilities through navigation and communication support</li>
+        <li>Future potential to integrate with neural interfaces like Neuralink for immersive connectivity</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" id="skills">
+    <div class="section-container">
+      <h2>Technical Development</h2>
+      <ul>
+        <li>Raspberry Pi programming using Linux and Python for core functionality</li>
+        <li>Embedded hardware design, soldering, and CAD modeling for sleek form factor</li>
+        <li>UI/UX design for both glasses interface and mobile companion app (React Native or Flutter)</li>
+        <li>Problem-solving, communication, and adaptability throughout development process</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" id="market">
+    <div class="section-container">
+      <h2>Market Strategy</h2>
+      <ul>
+        <li>Tech enthusiasts, enterprise workers, people with disabilities, and productivity-focused individuals</li>
+        <li>Dual product offering: smart lens package for existing frames or full stylish smart glasses</li>
+        <li>Opportunities to partner with fashion and eyewear brands for custom collaborations</li>
+        <li>Collaboration potential with disability-tech firms, and use-cases in law enforcement and industrial fields</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" id="goals">
+    <div class="section-container">
+      <h2>Business Vision</h2>
+      <ul>
+        <li>Aspire to start a tech firm blending hardware innovation with real-world utility</li>
+        <li>Learn business operations: pricing, marketing, and funding through VC or grants</li>
+        <li>Use funds for acquiring components, tech training, and unexpected issues (~$75 surplus planned)</li>
+        <li>Already prepared a budget spreadsheet for all necessary parts and tools</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <div class="section-container">
+      <h2>Connect With Us</h2>
+      <div class="contact-info">
+        <a href="https://sarveshwarsenthilkumar.github.io" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" style="margin-right: 8px;">
+            <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm7.5-6.923c-.67.204-1.335.82-1.887 1.855-.143.268-.276.56-.395.872.705.157 1.472.257 2.282.287V1.077zM4.249 3.539c.142-.384.304-.744.481-1.078a6.7 6.7 0 0 0-.597-.933A7.01 7.01 0 0 0 3.051 3.05c.362.184.763.349 1.198.49zM3.509 7.5c.036-1.07.188-2.087.436-3.008a9.124 9.124 0 0 1-1.565-.667A6.964 6.964 0 0 0 1.018 7.5h2.49zm1.4-2.741a12.344 12.344 0 0 0-.4 2.741H7.5V5.091c-.91-.03-1.783-.145-2.591-.332zM8.5 5.09V7.5h2.99a12.342 12.342 0 0 0-.399-2.741c-.808.187-1.681.301-2.591.332zM4.51 8.5c.035.987.176 1.914.399 2.741A13.612 13.612 0 0 1 7.5 10.91V8.5H4.51zm3.99 0v2.409c.91.03 1.783.145 2.591.332.223-.827.364-1.754.4-2.741H8.5zm-3.282 3.696c.12.312.252.604.395.872.552 1.035 1.218 1.65 1.887 1.855V11.91c-.81.03-1.577.13-2.282.287zm.66-1.327a13.562 13.562 0 0 1-.481-1.078 8.697 8.697 0 0 1-1.198-.49 7.01 7.01 0 0 0 1.16.832 8.94 8.94 0 0 0 .519.736zM1.018 8.5H3.51c-.036.987-.176 1.914-.399 2.741-.148.55-.325 1.056-.519 1.536a6.99 6.99 0 0 1-1.574-.667A6.96 6.96 0 0 0 1.018 8.5zm7.464 2.741c.223-.827.364-1.754.4-2.741h2.492a6.959 6.959 0 0 0-.436 3.008 9.124 9.124 0 0 1-1.565.667 11.405 11.405 0 0 1-.891-.934zM5.248 12.31a7.005 7.005 0 0 0 1.16-.832 8.94 8.94 0 0 0 .519-.736 8.698 8.698 0 0 1-1.198.49 7.96 7.96 0 0 1-.481-1.078z"/>
+          </svg>
+          Personal Website
+        </a>
+        <a href="https://www.linkedin.com/in/sarveshwarsenthilkumar/" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" style="margin-right: 8px;">
+            <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.432.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/>
+          </svg>
+          LinkedIn
+        </a>
+        <a href="https://github.com/SarveshwarSenthilKumar" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" style="margin-right: 8px;">
+            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+          </svg>
+          GitHub
+        </a>
+        <a href="tel:+14374504378">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" style="margin-right: 8px;">
+            <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>
+          </svg>
+          +1 (437) 450-4378
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 NeoVue Inc. | Innovating Eyewear. Empowering Vision.
+    <p style="margin-top: 1rem; font-size: 0.8rem;">Crafted with precision for the future of augmented reality</p>
+  </footer>
+
+</body>
+
+</html>
