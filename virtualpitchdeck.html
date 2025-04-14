@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NeoVue | The Future of Augmented Vision</title>
+  <link rel="icon" href="neovuelogo.png" type="image/png">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+    :root {
+      --primary: #00e6f6;
+      --secondary: #00ffa2;
+      --dark: #0a0a0a;
+      --light: #f8f8f8;
+      --gray: #e0e0e0;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--dark);
+      color: var(--light);
+      overflow-x: hidden;
+      overflow-y: hidden;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .slide-container {
+      position: relative;
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+    }
+
+    .slide {
+      width: 100vw;
+      height: 100vh;
+      padding: 80px 10% 60px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      overflow: hidden;
+      transition: transform 0.5s ease;
+      transform: translateX(100%);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .slide.active {
+      transform: translateX(0);
+    }
+
+    .slide-header {
+      min-height: 120px;
+      margin-bottom: 20px;
+    }
+
+    .slide-title {
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1.2;
+    }
+
+    .slide-subtitle {
+      font-size: 1.3rem;
+      color: var(--gray);
+      margin-bottom: 1rem;
+      max-width: 800px;
+    }
+
+    .slide-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .card-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.8rem;
+      color: var(--primary);
+    }
+
+    .card-content {
+      color: var(--gray);
+      line-height: 1.5;
+      font-size: 0.95rem;
+      overflow: hidden;
+    }
+
+    .card-content li {
+      margin-bottom: 0.4rem;
+      padding-left: 1rem;
+    }
+
+    .card-content li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--secondary);
+    }
+
+    /* Custom animated icons */
+    .tech-icon {
+      width: 100%;
+      height: 200px;
+      margin: 1rem 0;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Cover slide icon */
+    .glasses-icon {
+      width: 180px;
+      height: 80px;
+      border: 3px solid var(--primary);
+      border-radius: 10px 10px 30px 30px;
+      position: relative;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .glasses-icon::before,
+    .glasses-icon::after {
+      content: '';
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      border: 3px solid var(--primary);
+      border-radius: 50%;
+      top: 10px;
+      animation: pulse 2s infinite alternate;
+    }
+
+    .glasses-icon::before {
+      left: 10px;
+    }
+
+    .glasses-icon::after {
+      right: 10px;
+    }
+
+    .glasses-icon .bridge {
+      position: absolute;
+      width: 20px;
+      height: 3px;
+      background: var(--primary);
+      top: 35px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    /* Problem slide icons */
+    .phone-icon {
+      width: 60px;
+      height: 100px;
+      border: 3px solid var(--primary);
+      border-radius: 8px;
+      position: relative;
+      animation: shake 3s infinite;
+    }
+
+    .phone-icon::before {
+      content: '';
+      position: absolute;
+      width: 40px;
+      height: 5px;
+      background: var(--primary);
+      border-radius: 5px;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .watch-icon {
+      width: 60px;
+      height: 60px;
+      border: 3px solid var(--primary);
+      border-radius: 50%;
+      position: relative;
+      animation: pulse 2s infinite;
+    }
+
+    .watch-icon::before {
+      content: '';
+      position: absolute;
+      width: 30px;
+      height: 3px;
+      background: var(--primary);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+
+    .bulky-ar-icon {
+      width: 80px;
+      height: 60px;
+      border: 3px solid var(--primary);
+      border-radius: 10px;
+      position: relative;
+      animation: wobble 3s infinite;
+    }
+
+    .bulky-ar-icon::before {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 30px;
+      border: 3px solid var(--primary);
+      border-left: none;
+      border-radius: 0 10px 10px 0;
+      top: 15px;
+      right: -20px;
+    }
+
+    /* Solution slide icon */
+    .sleek-glasses-icon {
+      width: 200px;
+      height: 60px;
+      border: 3px solid var(--primary);
+      border-radius: 5px;
+      position: relative;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .sleek-glasses-icon::before,
+    .sleek-glasses-icon::after {
+      content: '';
+      position: absolute;
+      width: 70px;
+      height: 40px;
+      border: 3px solid var(--primary);
+      border-radius: 5px;
+      top: 10px;
+    }
+
+    .sleek-glasses-icon::before {
+      left: 10px;
+      background: linear-gradient(45deg, transparent 40%, rgba(0, 230, 246, 0.2) 100%);
+    }
+
+    .sleek-glasses-icon::after {
+      right: 10px;
+      background: linear-gradient(-45deg, transparent 40%, rgba(0, 230, 246, 0.2) 100%);
+    }
+
+    /* Market opportunity icon */
+    .market-icon {
+      width: 120px;
+      height: 120px;
+      position: relative;
+    }
+
+    .market-icon .pie {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 10px solid transparent;
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      animation: rotate 8s linear infinite;
+    }
+
+    .market-icon .pie:nth-child(1) {
+      border-top-color: var(--primary);
+      border-right-color: var(--primary);
+    }
+
+    .market-icon .pie:nth-child(2) {
+      border-bottom-color: var(--secondary);
+      border-left-color: var(--secondary);
+      animation-direction: reverse;
+    }
+
+    /* Business model icon */
+    .business-icon {
+      width: 120px;
+      height: 120px;
+      position: relative;
+    }
+
+    .business-icon .cube {
+      width: 60px;
+      height: 60px;
+      position: absolute;
+      top: 30px;
+      left: 30px;
+      transform-style: preserve-3d;
+      animation: spin 8s linear infinite;
+    }
+
+    .business-icon .face {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      border: 2px solid var(--primary);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 12px;
+      color: var(--primary);
+    }
+
+    .business-icon .front { transform: translateZ(30px); }
+    .business-icon .back { transform: rotateY(180deg) translateZ(30px); }
+    .business-icon .right { transform: rotateY(90deg) translateZ(30px); }
+    .business-icon .left { transform: rotateY(-90deg) translateZ(30px); }
+    .business-icon .top { transform: rotateX(90deg) translateZ(30px); }
+    .business-icon .bottom { transform: rotateX(-90deg) translateZ(30px); }
+
+    /* Financials icon */
+    .financial-icon {
+      width: 120px;
+      height: 120px;
+      position: relative;
+    }
+
+    .financial-icon .graph {
+      position: absolute;
+      width: 100px;
+      height: 80px;
+      bottom: 0;
+      left: 10px;
+      border-left: 2px solid var(--primary);
+      border-bottom: 2px solid var(--primary);
+    }
+
+    .financial-icon .bar {
+      position: absolute;
+      bottom: 0;
+      width: 15px;
+      background: linear-gradient(to top, var(--primary), var(--secondary));
+      animation: grow 2s ease-out forwards;
+    }
+
+    .financial-icon .bar:nth-child(1) { height: 30px; left: 10px; animation-delay: 0.2s; }
+    .financial-icon .bar:nth-child(2) { height: 50px; left: 30px; animation-delay: 0.4s; }
+    .financial-icon .bar:nth-child(3) { height: 70px; left: 50px; animation-delay: 0.6s; }
+    .financial-icon .bar:nth-child(4) { height: 90px; left: 70px; animation-delay: 0.8s; }
+
+    /* Contact icon */
+    .contact-icon {
+      width: 100px;
+      height: 100px;
+      position: relative;
+      animation: pulse 2s infinite;
+    }
+
+    .contact-icon .circle {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      border: 3px solid var(--primary);
+      border-radius: 50%;
+      top: 10px;
+      left: 10px;
+    }
+
+    .contact-icon .hand {
+      position: absolute;
+      width: 30px;
+      height: 10px;
+      background: var(--secondary);
+      top: 40px;
+      left: 60px;
+      transform: rotate(45deg);
+      animation: wave 2s infinite;
+    }
+
+    /* Animations */
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(1.05); }
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: rotate(0deg); }
+      10%, 30%, 50%, 70%, 90% { transform: rotate(-5deg); }
+      20%, 40%, 60%, 80% { transform: rotate(5deg); }
+    }
+
+    @keyframes wobble {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes spin {
+      0% { transform: rotateX(0) rotateY(0); }
+      100% { transform: rotateX(360deg) rotateY(360deg); }
+    }
+
+    @keyframes grow {
+      0% { height: 0; }
+      100% { height: var(--h); }
+    }
+
+    @keyframes wave {
+      0%, 100% { transform: rotate(45deg); }
+      50% { transform: rotate(60deg); }
+    }
+
+    /* Navigation elements */
+    .logo {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      height: 40px;
+      z-index: 100;
+    }
+
+    .slide-nav {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      display: flex;
+      gap: 10px;
+      z-index: 100;
+    }
+
+    .nav-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .nav-dot.active {
+      background: var(--primary);
+      transform: scale(1.3);
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      font-size: 0.7rem;
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    /* Buttons and links */
+    .cta-button {
+      display: inline-block;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      color: var(--dark);
+      padding: 0.7rem 1.8rem;
+      border-radius: 30px;
+      font-weight: 600;
+      margin-top: 1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 230, 246, 0.3);
+      border: none;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0, 230, 246, 0.4);
+    }
+
+    .contact-info {
+      display: flex;
+      gap: 1.2rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+      font-size: 0.9rem;
+    }
+
+    .contact-info a {
+      color: var(--gray);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .contact-info a:hover {
+      color: var(--primary);
+    }
+
+    .budget-link {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      margin-top: 0.8rem;
+      display: inline-block;
+      font-size: 0.9rem;
+    }
+
+    .home-link {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: var(--gray);
+      text-decoration: none;
+      z-index: 100;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+    }
+
+    .highlight {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .slide {
+        padding: 70px 5% 50px;
+      }
+      
+      .slide-title {
+        font-size: 2rem;
+      }
+      
+      .slide-subtitle {
+        font-size: 1.1rem;
+      }
+      
+      .content-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      
+      .tech-icon {
+        height: 150px;
+      }
+      
+      .contact-info {
+        gap: 0.8rem;
+        font-size: 0.8rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="slide-container">
+    <!-- Cover Slide -->
+    <div class="slide active">
+      <img src="neovueicon.png" alt="NeoVue Logo" class="logo">
+      <div class="slide-header">
+        <h1 class="slide-title">The Future of Augmented Vision</h1>
+        <p class="slide-subtitle">Smart glasses that seamlessly integrate digital information into your natural field of view</p>
+      </div>
+      <div class="slide-content">
+        <div class="tech-icon">
+          <div class="glasses-icon">
+            <div class="bridge"></div>
+          </div>
+        </div>
+        <button class="cta-button" onclick="location.href='#contact'">Invest in the Future</button>
+      </div>
+      <div class="footer">Confidential - For Investor Review Only</div>
+    </div>
+
+    <!-- Problem Slide -->
+    <div class="slide">
+      <img src="neovueicon.png" alt="NeoVue Logo" class="logo">
+      <div class="slide-header">
+        <h1 class="slide-title">The Digital Intrusion Problem</h1>
+        <p class="slide-subtitle">Current solutions force us to choose between staying connected and being present</p>
+      </div>
+      <div class="slide-content">
+        <div class="content-grid">
+          <div class="card">
+            <h3 class="card-title">Smartphone Addiction</h3>
+            <div class="tech-icon">
+              <div class="phone-icon"></div>
+            </div>
+            <ul class="card-content">
+              <li>Average user checks phone 58x daily</li>
+              <li>Constant interruptions break focus</li>
+              <li>Physical strain from looking down</li>
+            </ul>
+          </div>
+          
+          <div class="card">
+            <h3 class="card-title">Smartwatch Limitations</h3>
+            <div class="tech-icon">
+              <div class="watch-icon"></div>
+            </div>
+            <ul class="card-content">
+              <li>Small display requires frequent glances</li>
+              <li>Limited functionality beyond notifications</li>
+              <li>Still requires manual interaction</li>
+            </ul>
+          </div>
+          
+          <div class="card">
+            <h3 class="card-title">Current AR Glasses</h3>
+            <div class="tech-icon">
+              <div class="bulky-ar-icon"></div>
+            </div>
+            <ul class="card-content">
+              <li>Bulky and socially awkward</li>
+              <li>Display visible to others (privacy concerns)</li>
+              <li>Not designed for all-day wear</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer">2</div>
+    </div>
+
+    <!-- Solution Slide -->
+    <div class="slide">
+      <img src="neovueicon.png" alt="NeoVue Logo" class="logo">
+      <div class="slide-header">
+        <h1 class="slide-title">The NeoVue Solution</h1>
+        <p class="slide-subtitle">Discreet, stylish smart glasses with private display technology</p>
+      </div>
+      <div class="slide-content">
+        <div class="tech-icon">
+          <div class="sleek-glasses-icon"></div>
+        </div>
+        <div class="content-grid">
+          <div class="card">
+            <h3 class="card-title">Key Features</h3>
+            <ul class="card-content">
+              <li><span class="highlight">Private transparent display</span> - Only visible to wearer</li>
+              <li><span class="highlight">Prescription compatible</span> - Works with existing lenses</li>
+              <li><span class="highlight">Voice control</span> - Truly hands-free operation</li>
+            </ul>
+          </div>
+          
+          <div class="card">
+            <h3 class="card-title">Technical Specs</h3>
+            <ul class="card-content">
+              <li>Raspberry Pi compute module</li>
+              <li>Micro OLED waveguide display</li>
+              <li>6-axis IMU for motion sensing</li>
+              <li>8MP camera with 1080p video</li>
+            </ul>
+          </div>
+          
+          <div class="card">
+            <h3 class="card-title">Differentiators</h3>
+            <ul class="card-content">
+              <li><span class="highlight">Socially acceptable</span> - Looks like regular glasses</li>
+              <li><span class="highlight">Privacy focused</span> - No external display</li>
+              <li><span class="highlight">Modular design</span> - Add to existing frames</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer">3</div>
+    </div>
+
+    <!-- Market Opportunity Slide -->
+    <div class="slide">
+      <img src="neovueicon.png" alt="NeoVue Logo" class="logo">
+      <div class="slide-header">
+        <h1 class="slide-title">Market Opportunity</h1>
+        <p class="slide-subtitle">Addressing multiple high-growth segments with a versatile platform</p>
+      </div>
+      <div class="slide-content">
+        <div class="content-grid">
+          <div class="card">
+            <h3 class="card-title">Consumer Market</h3>
+            <div class="tech-icon">
+              <div class="market-icon">
+                <div class="pie"></div>
+                <div class="pie"></div>
+              </div>
+            </div>
+            <ul class="card-content">
+              <li><span class="highlight">$33.1B</span> smart glasses market by 2027 (16.6% CAGR)</li>
+              <li>Tech enthusiasts replacing smartwatches</li>
+              <li>Fashion-conscious early adopters</li>
+            </ul>
+          </div>
+          
+          <div class="card">
+            <h3 class="card-title">Accessibility Market</h3>
+            <div class="tech-icon">
+              <div class="contact-icon">
+                <div class="circle"></div>
+                <div class="hand"></div>
+              </div>
+            </div>
+            <ul class="card-content">
+              <li>More than <span class="highlight">1B people</span> globally need assistive tech</li>
+              <li>Navigation for visually impaired</li>
+              <li>Communication aid for hearing impaired</li>
+            </ul>
+          </div>
+          
+          <div class="card">
+            <h3 class="card-title">Enterprise Market</h3>
+            <div class="tech-icon">
+              <div class="business-icon">
+                <div class="cube">
+                  <div class="face front">B2B</div>
+                  <div class="face back">B2C</div>
+                  <div class="face right">SaaS</div>
+                  <div class="face left">IoT</div>
+                  <div class="face top">AI</div>
+                  <div class="face bottom">AR</div>
+                </div>
+              </div>
+            </div>
+            <ul class="card-content">
+              <li>Field service technicians</li>
+              <li>Healthcare professionals</li>
+              <li>Law enforcement applications</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer">4</div>
+    </div>
+
+    <!-- Business Model Slide -->
+    <div class="slide">
+      <img src="neovueicon.png" alt="NeoVue Logo" class="logo">
+      <div class="slide-header">
+        <h1 class="slide-title">Business Model</h1>
+        <p class="slide-subtitle">Dual revenue streams with premium positioning</p>
+      </div>
+      <div class="slide-content">
+        <div class="content-grid">
+          <div class="card">
+            <h3 class="card-title">Product Lines</h3>
+            <div class="tech-icon">
+              <div class="business-icon">
+                <div class="cube">
+                  <div class="face front">Pro</div>
+                  <div class="face back">Core</div>
+                  <div class="face right">Lite</div>
+                  <div class="face left">Plus</div>
+                  <div class="face top">AI</div>
+                  <div class="face bottom">AR</div>
+                </div>
+              </div>
+            </div>
+            <ul class="card-content">
+              <li><span class="highlight">NeoVue Complete</span> - Full smart glasses</li>
+              <li><span class="highlight">NeoVue Core</span> - Module for existing frames</li>
+              <li>Premium designer collaborations</li>
+            </ul>
+          </div>
+          
+          <div class="card">
+            <h3 class="card-title">Revenue Streams</h3>
+            <div class="tech-icon">
+              <div class="financial-icon">
+                <div class="graph">
+                  <div class="bar" style="--h: 30px;"></div>
+                  <div class="bar" style="--h: 50px;"></div>
+                  <div class="bar" style="--h: 70px;"></div>
+                  <div class="bar" style="--h: 90px;"></div>
+                </div>
+              </div>
+            </div>
+            <ul class="card-content">
+              <li>Hardware sales</li>
+              <li>App marketplace</li>
+              <li>Enterprise software licenses</li>
+            </ul>
+          </div>
+          
+          <div class="card">
+            <h3 class="card-title">Partnership Strategy</h3>
+            <div class="tech-icon">
+              <div class="contact-icon">
+                <div class="circle"></div>
+                <div class="hand"></div>
+              </div>
+            </div>
+            <ul class="card-content">
+              <li>Eyewear brands</li>
+              <li>Fashion houses</li>
+              <li>Accessibility organizations</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer">5</div>
+    </div>
+
+    <!-- Financials Slide -->
+    <div class="slide">
+      <img src="neovueicon.png" alt="NeoVue Logo" class="logo">
+      <div class="slide-header">
+        <h1 class="slide-title">Financial Overview</h1>
+        <p class="slide-subtitle">Detailed budget and resource allocation</p>
+      </div>
+      <div class="slide-content">
+        <div class="content-grid">
+          <div class="card">
+            <h3 class="card-title">Use of Funds</h3>
+            <div class="tech-icon">
+              <div class="financial-icon">
+                <div class="graph">
+                  <div class="bar" style="--h: 60px;"></div>
+                  <div class="bar" style="--h: 40px;"></div>
+                  <div class="bar" style="--h: 80px;"></div>
+                  <div class="bar" style="--h: 50px;"></div>
+                </div>
+              </div>
+            </div>
+            <ul class="card-content">
+              <li>Hardware components</li>
+              <li>Engineering talent</li>
+              <li>Patents & IP protection</li>
+              <li>Operations</li>
+              <li>Contingency</li>
+            </ul>
+            <a href="index.html#components" target="_blank" class="budget-link">View Detailed Budget Spreadsheet →</a>
+          </div>
+          
+          <div class="card">
+            <h3 class="card-title">Investment Highlights</h3>
+            <div class="tech-icon">
+              <div class="market-icon">
+                <div class="pie"></div>
+                <div class="pie"></div>
+              </div>
+            </div>
+            <ul class="card-content">
+              <li>First-mover in private display tech</li>
+              <li>Multiple billion-dollar addressable markets</li>
+              <li>Proprietary optical technology</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer">6</div>
+    </div>
+
+    <!-- Contact Slide -->
+    <div class="slide" id="contact">
+      <img src="neovueicon.png" alt="NeoVue Logo" class="logo">
+      <div class="slide-header">
+        <h1 class="slide-title">Investment Opportunity</h1>
+        <p class="slide-subtitle">Join us in building the next generation of wearable computing</p>
+      </div>
+      <div class="slide-content">
+        <div class="content-grid">
+          <div class="card">
+            <h3 class="card-title">Why Invest</h3>
+            <div class="tech-icon">
+              <div class="market-icon">
+                <div class="pie"></div>
+                <div class="pie"></div>
+              </div>
+            </div>
+            <ul class="card-content">
+              <li>Disruptive technology in growing market</li>
+              <li>Clear path to commercialization</li>
+              <li>Multiple revenue streams</li>
+            </ul>
+          </div>
+          
+          <div class="card">
+            <h3 class="card-title">Next Steps</h3>
+            <div class="tech-icon">
+              <div class="contact-icon">
+                <div class="circle"></div>
+                <div class="hand"></div>
+              </div>
+            </div>
+            <ul class="card-content">
+              <li>Review detailed business plan</li>
+              <li>Technical demonstration</li>
+              <li>Investment terms discussion</li>
+            </ul>
+          </div>
+        </div>
+        
+        <button class="cta-button" onclick="window.location.href='mailto:sarveshwar.senthilkumar@gmail.com'">Contact for Due Diligence</button>
+        
+        <div class="contact-info">
+          <a href="https://sarveshwarsenthilkumar.github.io" target="_blank">Personal Website</a>
+          <a href="https://www.linkedin.com/in/sarveshwarsenthilkumar/" target="_blank">LinkedIn</a>
+          <a href="https://github.com/SarveshwarSenthilKumar" target="_blank">GitHub</a>
+          <a href="tel:+14374504378">+1 (437) 450-4378</a>
+          <a href="mailto:sarveshwar.senthilkumar@gmail.com">Email</a>
+        </div>
+      </div>
+      <a href="index.html" class="home-link">Return to Main Site</a>
+      <div class="footer">7</div>
+    </div>
+  </div>
+
+  <!-- Navigation Dots -->
+  <div class="slide-nav">
+    <div class="nav-dot active" data-slide="0"></div>
+    <div class="nav-dot" data-slide="1"></div>
+    <div class="nav-dot" data-slide="2"></div>
+    <div class="nav-dot" data-slide="3"></div>
+    <div class="nav-dot" data-slide="4"></div>
+    <div class="nav-dot" data-slide="5"></div>
+    <div class="nav-dot" data-slide="6"></div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const slides = document.querySelectorAll('.slide');
+      const dots = document.querySelectorAll('.nav-dot');
+      let currentSlide = 0;
+      let isAnimating = false;
+      
+      // Show initial slide
+      showSlide(currentSlide);
+      
+      // Keyboard navigation
+      document.addEventListener('keydown', function(e) {
+        if (isAnimating) return;
+        
+        switch(e.key) {
+          case 'ArrowRight':
+          case 'ArrowDown':
+          case 'PageDown':
+          case ' ':
+            nextSlide();
+            break;
+          case 'ArrowLeft':
+          case 'ArrowUp':
+          case 'PageUp':
+            prevSlide();
+            break;
+          case 'Home':
+            showSlide(0);
+            break;
+          case 'End':
+            showSlide(slides.length - 1);
+            break;
+        }
+      });
+      
+      // Dot navigation
+      dots.forEach(dot => {
+        dot.addEventListener('click', function() {
+          if (isAnimating) return;
+          const slideIndex = parseInt(this.getAttribute('data-slide'));
+          showSlide(slideIndex);
+        });
+      });
+      
+      // Touch/swipe support
+      let touchStartX = 0;
+      let touchEndX = 0;
+      
+      document.addEventListener('touchstart', function(e) {
+        touchStartX = e.changedTouches[0].screenX;
+      }, false);
+      
+      document.addEventListener('touchend', function(e) {
+        if (isAnimating) return;
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+      }, false);
+      
+      function handleSwipe() {
+        if (touchEndX < touchStartX - 50) {
+          nextSlide();
+        }
+        if (touchEndX > touchStartX + 50) {
+          prevSlide();
+        }
+      }
+      
+      function showSlide(n) {
+        isAnimating = true;
+        slides.forEach(slide => slide.classList.remove('active'));
+        dots.forEach(dot => dot.classList.remove('active'));
+        
+        currentSlide = (n + slides.length) % slides.length;
+        slides[currentSlide].classList.add('active');
+        dots[currentSlide].classList.add('active');
+        
+        // Ensure we're scrolled to top
+        slides[currentSlide].scrollTop = 0;
+        
+        // Reset animation lock after transition
+        setTimeout(() => {
+          isAnimating = false;
+        }, 500);
+      }
+      
+      function nextSlide() {
+        showSlide(currentSlide + 1);
+      }
+      
+      function prevSlide() {
+        showSlide(currentSlide - 1);
+      }
+    });
+  </script>
+
+</body>
+</html>
