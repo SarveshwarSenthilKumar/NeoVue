@@ -101,6 +101,8 @@
     .hero-content {
       max-width: 900px;
       margin: 0 auto;
+      position: relative;
+      z-index: 1;
     }
 
     .hero h1 {
@@ -112,6 +114,7 @@
       -webkit-text-fill-color: transparent;
       line-height: 1.2;
       letter-spacing: -0.5px;
+      animation: fadeInUp 1s ease-out;
     }
 
     .hero p {
@@ -119,6 +122,55 @@
       color: #b0b0b0;
       max-width: 700px;
       margin: 0 auto 2rem;
+      animation: fadeInUp 1s ease-out 0.2s forwards;
+      opacity: 0;
+    }
+
+    .hero .cta-button {
+      animation: fadeInUp 1s ease-out 0.4s forwards;
+      opacity: 0;
+    }
+
+    .floating-glasses {
+      position: absolute;
+      width: 300px;
+      height: 150px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 0;
+      opacity: 0.1;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .floating-glasses::before,
+    .floating-glasses::after {
+      content: '';
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      border: 3px solid #00e6f6;
+      border-radius: 50%;
+      top: 25px;
+      animation: pulse 4s infinite alternate;
+    }
+
+    .floating-glasses::before {
+      left: 20px;
+    }
+
+    .floating-glasses::after {
+      right: 20px;
+    }
+
+    .floating-glasses .bridge {
+      position: absolute;
+      width: 40px;
+      height: 3px;
+      background: #00e6f6;
+      top: 70px;
+      left: 50%;
+      transform: translateX(-50%);
     }
 
     .section {
@@ -141,6 +193,7 @@
       color: #fff;
       position: relative;
       display: inline-block;
+      animation: fadeInUp 0.8s ease-out;
     }
 
     .section h2::after {
@@ -166,7 +219,15 @@
       position: relative;
       color: #d0d0d0;
       font-size: 1.1rem;
+      animation: fadeInLeft 0.8s ease-out;
+      animation-fill-mode: both;
     }
+
+    .section li:nth-child(1) { animation-delay: 0.2s; }
+    .section li:nth-child(2) { animation-delay: 0.4s; }
+    .section li:nth-child(3) { animation-delay: 0.6s; }
+    .section li:nth-child(4) { animation-delay: 0.8s; }
+    .section li:nth-child(5) { animation-delay: 1s; }
 
     .section li::before {
       content: '';
@@ -185,6 +246,110 @@
       padding: 2rem;
       margin: 3rem 0;
       border-radius: 0 5px 5px 0;
+      animation: fadeIn 1s ease-out 0.5s both;
+      font-style: italic;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .highlight-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 230, 246, 0.03), transparent);
+      animation: shimmer 3s infinite;
+    }
+
+    .pitch-deck-container {
+      display: flex;
+      justify-content: center;
+      margin: 4rem 0;
+    }
+
+    .pitch-deck-card {
+      background: linear-gradient(135deg, rgba(0, 230, 246, 0.1), rgba(0, 255, 162, 0.1));
+      border-radius: 15px;
+      padding: 2rem;
+      width: 100%;
+      max-width: 600px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 230, 246, 0.1);
+      border: 1px solid rgba(0, 230, 246, 0.2);
+      transition: all 0.5s ease;
+      transform-style: preserve-3d;
+      perspective: 1000px;
+      animation: fadeInUp 1s ease-out 0.5s both;
+    }
+
+    .pitch-deck-card:hover {
+      transform: translateY(-10px) rotateX(5deg);
+      box-shadow: 0 15px 40px rgba(0, 230, 246, 0.2);
+    }
+
+    .pitch-deck-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: #00e6f6;
+    }
+
+    .pitch-deck-card p {
+      color: #b0b0b0;
+      margin-bottom: 1.5rem;
+    }
+
+    .deck-preview {
+      width: 100%;
+      height: 300px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 10px;
+      margin: 1.5rem 0;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(0, 230, 246, 0.3);
+    }
+
+    .deck-slides {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+
+    .deck-slide {
+      min-width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      font-weight: bold;
+      color: rgba(255, 255, 255, 0.8);
+      background: linear-gradient(135deg, rgba(0, 230, 246, 0.2), rgba(0, 255, 162, 0.2));
+    }
+
+    .deck-controls {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 1rem;
+    }
+
+    .deck-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .deck-dot.active {
+      background: #00e6f6;
+      transform: scale(1.2);
     }
 
     footer {
@@ -224,7 +389,14 @@
       transition: all 0.3s ease;
       padding: 0.5rem 1rem;
       border-radius: 4px;
+      animation: fadeInUp 0.8s ease-out;
+      animation-fill-mode: both;
     }
+
+    .contact-info a:nth-child(1) { animation-delay: 0.2s; }
+    .contact-info a:nth-child(2) { animation-delay: 0.4s; }
+    .contact-info a:nth-child(3) { animation-delay: 0.6s; }
+    .contact-info a:nth-child(4) { animation-delay: 0.8s; }
 
     .contact-info a:hover {
       color: #00e6f6;
@@ -243,11 +415,117 @@
       margin-top: 1rem;
       transition: all 0.3s ease;
       box-shadow: 0 4px 15px rgba(0, 230, 246, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: 0.5s;
+    }
+
+    .cta-button:hover::before {
+      left: 100%;
     }
 
     .cta-button:hover {
       transform: translateY(-3px);
       box-shadow: 0 6px 20px rgba(0, 230, 246, 0.4);
+    }
+
+    /* 3D Animations */
+    @keyframes float {
+      0%, 100% { transform: translate(-50%, -50%) translateY(0); }
+      50% { transform: translate(-50%, -50%) translateY(-20px); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.1; }
+      50% { transform: scale(1.05); opacity: 0.15; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    /* 3D Card Flip */
+    .flip-card {
+      background: transparent;
+      perspective: 1000px;
+      width: 300px;
+      height: 200px;
+      margin: 2rem auto;
+    }
+
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.8s;
+      transform-style: preserve-3d;
+    }
+
+    .flip-card:hover .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .flip-card-front, .flip-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 1.5rem;
+    }
+
+    .flip-card-front {
+      background: linear-gradient(135deg, rgba(0, 230, 246, 0.1), rgba(0, 255, 162, 0.1));
+      border: 1px solid rgba(0, 230, 246, 0.3);
+    }
+
+    .flip-card-back {
+      background: linear-gradient(135deg, rgba(0, 230, 246, 0.2), rgba(0, 255, 162, 0.2));
+      transform: rotateY(180deg);
+      border: 1px solid rgba(0, 255, 162, 0.3);
     }
 
     @media (max-width: 768px) {
@@ -279,6 +557,11 @@
       .contact-info {
         gap: 1.5rem;
       }
+
+      .flip-card {
+        width: 250px;
+        height: 180px;
+      }
     }
   </style>
 </head>
@@ -291,16 +574,21 @@
       <a href="#solution">Value</a>
       <a href="#market">Market</a>
       <a href="#skills">Development</a>
+      <a href="#components">Components</a>
       <a href="#goals">Strategy</a>
+      <a href="#pitch">Pitch Deck</a>
       <a href="#contact">Contact</a>
     </nav>
   </header>
 
   <section class="hero">
+    <div class="floating-glasses">
+      <div class="bridge"></div>
+    </div>
     <div class="hero-content">
       <h1>Redefining Reality with NeoVue Smart Glasses</h1>
       <p>Augmented intelligence seamlessly integrated into your field of vision — the future of wearable technology</p>
-      <a href="#contact" class="cta-button">Explore Possibilities</a>
+      <a href="#pitch" class="cta-button">View Pitch Deck</a>
     </div>
   </section>
 
@@ -329,6 +617,18 @@
         <li>Enhances lives of users with disabilities through navigation and communication support</li>
         <li>Future potential to integrate with neural interfaces like Neuralink for immersive connectivity</li>
       </ul>
+
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <h3>Innovation</h3>
+            <p>Tap to see the future</p>
+          </div>
+          <div class="flip-card-back">
+            <p>Private display technology that only you can see</p>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -343,6 +643,486 @@
       </ul>
     </div>
   </section>
+
+  <section class="section" id="components">
+    <div class="section-container">
+        <h2>Augmented Reality Glasses Component Breakdown</h2>
+        
+        <div class="components-table">
+          <div class="components-header">
+            <div class="component-name">Component</div>
+            <div class="component-link">Purchase Link</div>
+            <div class="component-price">Price</div>
+            <div class="component-notes">Notes</div>
+          </div>
+          
+          <div class="components-body">
+            <!-- Display System -->
+            <div class="component-row">
+              <div class="component-name">
+                <span class="component-title">Transparent OLED Display</span>
+                <span class="component-desc">Primary display technology that overlays digital content onto the real world while maintaining visibility through the glasses</span>
+              </div>
+              <div class="component-link">
+                <a href="#" target="_blank" class="component-link-btn">View</a>
+              </div>
+              <div class="component-price">$32.99</div>
+              <div class="component-notes">x2 (one for each eye)</div>
+            </div>
+            
+            <!-- Processing Units -->
+            <div class="component-row">
+              <div class="component-name">
+                <span class="component-title">Raspberry Pi Zero</span>
+                <span class="component-desc">Main processing unit for handling basic AR functions and display output</span>
+              </div>
+              <div class="component-link">
+                <a href="#" target="_blank" class="component-link-btn">View</a>
+              </div>
+              <div class="component-price">$39.99</div>
+              <div class="component-notes"></div>
+            </div>
+            
+            <div class="component-row">
+              <div class="component-name">
+                <span class="component-title">Raspberry Pi 3A Chip</span>
+                <span class="component-desc">Alternative more powerful processor if additional computing power is needed for complex AR applications</span>
+              </div>
+              <div class="component-link">
+                <a href="#" target="_blank" class="component-link-btn">View</a>
+              </div>
+              <div class="component-price">$55.00</div>
+              <div class="component-notes">Maybe</div>
+            </div>
+            
+            <div class="component-row">
+              <div class="component-name">
+                <span class="component-title">Arduino Nano Chip</span>
+                <span class="component-desc">Secondary controller for handling sensor inputs and low-level hardware interactions</span>
+              </div>
+              <div class="component-link">
+                <a href="#" target="_blank" class="component-link-btn">View</a>
+              </div>
+              <div class="component-price">$40.99</div>
+              <div class="component-notes">Maybe</div>
+            </div>
+            
+            <!-- Storage -->
+            <div class="component-row">
+              <div class="component-name">
+                <span class="component-title">SanDisk 32GB SD Card</span>
+                <span class="component-desc">Storage for operating system, applications, and cached AR content</span>
+              </div>
+              <div class="component-link">
+                <a href="#" target="_blank" class="component-link-btn">View</a>
+              </div>
+              <div class="component-price">$22.95</div>
+              <div class="component-notes"></div>
+            </div>
+            
+            <!-- Frame Components -->
+            <div class="component-row">
+              <div class="component-name">
+                <span class="component-title">Glasses Frames for base</span>
+                <span class="component-desc">Physical frame to house all electronic components while maintaining wearable form factor</span>
+              </div>
+              <div class="component-link">
+                <a href="#" target="_blank" class="component-link-btn">View</a>
+              </div>
+              <div class="component-price">$17.99</div>
+              <div class="component-notes"></div>
+            </div>
+            
+            <div class="component-row">
+              <div class="component-name">
+                <span class="component-title">Glasses w/Speaker for base</span>
+                <span class="component-desc">Alternative frame with integrated audio for spatial audio feedback in AR experiences</span>
+              </div>
+              <div class="component-link">
+                <a href="#" target="_blank" class="component-link-btn">View</a>
+              </div>
+              <div class="component-price">$41.99</div>
+              <div class="component-notes">Maybe</div>
+            </div>
+            
+            <!-- Connectivity -->
+            <div class="component-row">
+              <div class="component-name">
+                <span class="component-title">Raspberry Pi Starter Cables</span>
+                <span class="component-desc">Essential cables for power and data transfer between components</span>
+              </div>
+              <div class="component-link">
+                <a href="#" target="_blank" class="component-link-btn">View</a>
+              </div>
+              <div class="component-price">$16.99</div>
+              <div class="component-notes"></div>
+            </div>
+            
+            <div class="component-row">
+              <div class="component-name">
+                <span class="component-title">USB Type C to Micro USB</span>
+                <span class="component-desc">Adapter cable for connecting modern power sources to older micro USB ports</span>
+              </div>
+              <div class="component-link">
+                <a href="#" target="_blank" class="component-link-btn">View</a>
+              </div>
+              <div class="component-price">$7.99</div>
+              <div class="component-notes"></div>
+            </div>
+            
+            <div class="component-row">
+              <div class="component-name">
+                <span class="component-title">Micro USB to USB A Cable</span>
+                <span class="component-desc">Alternative connection cable for peripherals and debugging</span>
+              </div>
+              <div class="component-link">
+                <a href="#" target="_blank" class="component-link-btn">View</a>
+              </div>
+              <div class="component-price">$10.89</div>
+              <div class="component-notes">Maybe</div>
+            </div>
+            
+            <!-- Prototyping -->
+            <div class="component-row">
+              <div class="component-name">
+                <span class="component-title">Pack of Jumper Wires</span>
+                <span class="component-desc">For prototyping circuit connections between components before final assembly</span>
+              </div>
+              <div class="component-link">
+                <a href="#" target="_blank" class="component-link-btn">View</a>
+              </div>
+              <div class="component-price">$13.99</div>
+              <div class="component-notes"></div>
+            </div>
+            
+            <div class="component-row">
+              <div class="component-name">
+                <span class="component-title">Breadboard Starter Kit</span>
+                <span class="component-desc">For testing circuit designs before permanent installation in glasses frame</span>
+              </div>
+              <div class="component-link">
+                <a href="#" target="_blank" class="component-link-btn">View</a>
+              </div>
+              <div class="component-price">$19.99</div>
+              <div class="component-notes">Maybe</div>
+            </div>
+            
+            <!-- Sensors -->
+            <div class="component-row">
+              <div class="component-name">
+                <span class="component-title">Camera Module for Raspberry Pi</span>
+                <span class="component-desc">Forward-facing camera for computer vision, environment scanning, and recording</span>
+              </div>
+              <div class="component-link">
+                <a href="#" target="_blank" class="component-link-btn">View</a>
+              </div>
+              <div class="component-price">$29.67</div>
+              <div class="component-notes"></div>
+            </div>
+            
+            <div class="component-row">
+              <div class="component-name">
+                <span class="component-title">Camera Connecting Cable</span>
+                <span class="component-desc">Flexible ribbon cable to connect camera module to processor while allowing adjustment</span>
+              </div>
+              <div class="component-link">
+                <a href="#" target="_blank" class="component-link-btn">View</a>
+              </div>
+              <div class="component-price">$13.31</div>
+              <div class="component-notes">Maybe</div>
+            </div>
+            
+            <div class="component-row">
+              <div class="component-name">
+                <span class="component-title">Microphone for Raspberry Pi</span>
+                <span class="component-desc">For voice commands and audio input in AR applications</span>
+              </div>
+              <div class="component-link">
+                <a href="#" target="_blank" class="component-link-btn">View</a>
+              </div>
+              <div class="component-price">$16.99</div>
+              <div class="component-notes"></div>
+            </div>
+            
+            <div class="component-row">
+              <div class="component-name">
+                <span class="component-title">Capacitive Touch Sensor</span>
+                <span class="component-desc">For touch controls on the glasses frame (temple taps, etc.)</span>
+              </div>
+              <div class="component-link">
+                <a href="#" target="_blank" class="component-link-btn">View</a>
+              </div>
+              <div class="component-price">$15.29</div>
+              <div class="component-notes"></div>
+            </div>
+            
+            <!-- Power System -->
+            <div class="component-row">
+              <div class="component-name">
+                <span class="component-title">Raspberry Pi 3000mAh Battery</span>
+                <span class="component-desc">Compact power source designed specifically for Pi-based portable projects</span>
+              </div>
+              <div class="component-link">
+                <a href="#" target="_blank" class="component-link-btn">View</a>
+              </div>
+              <div class="component-price">$16.49</div>
+              <div class="component-notes">Maybe</div>
+            </div>
+            
+            <div class="component-row">
+              <div class="component-name">
+                <span class="component-title">AdaFruit Powerboost</span>
+                <span class="component-desc">Power management module for stable voltage regulation and battery charging</span>
+              </div>
+              <div class="component-link">
+                <a href="#" target="_blank" class="component-link-btn">View</a>
+              </div>
+              <div class="component-price">$36.66</div>
+              <div class="component-notes">Maybe</div>
+            </div>
+            
+            <div class="component-row">
+              <div class="component-name">
+                <span class="component-title">Powerbank with Micro USB</span>
+                <span class="component-desc">Alternative power solution for extended use or testing phases</span>
+              </div>
+              <div class="component-link">
+                <a href="#" target="_blank" class="component-link-btn">View</a>
+              </div>
+              <div class="component-price">$19.99</div>
+              <div class="component-notes"></div>
+            </div>
+            
+            <!-- Assembly Tools -->
+            <div class="component-row">
+              <div class="component-name">
+                <span class="component-title">Soldering Iron Kit</span>
+                <span class="component-desc">For permanent connections and miniaturization of the final assembly</span>
+              </div>
+              <div class="component-link">
+                <a href="#" target="_blank" class="component-link-btn">View</a>
+              </div>
+              <div class="component-price">$38.99</div>
+              <div class="component-notes"></div>
+            </div>
+            
+            <div class="component-row">
+              <div class="component-name">
+                <span class="component-title">Raspberry Pi Extender Module</span>
+                <span class="component-desc">Allows for easier access to GPIO pins during development and testing</span>
+              </div>
+              <div class="component-link">
+                <a href="#" target="_blank" class="component-link-btn">View</a>
+              </div>
+              <div class="component-price">$17.16</div>
+              <div class="component-notes">Maybe</div>
+            </div>
+            
+            <!-- Total Rows -->
+            <div class="component-row total-row">
+              <div class="component-name">
+                <span class="component-title">Minimum Total</span>
+                <span class="component-desc">Core components required for basic functionality</span>
+              </div>
+              <div class="component-link"></div>
+              <div class="component-price">$240.83</div>
+              <div class="component-notes"></div>
+            </div>
+            
+            <div class="component-row total-row">
+              <div class="component-name">
+                <span class="component-title">Potential Additional</span>
+                <span class="component-desc">Optional components for enhanced features and capabilities or contingency</span>
+              </div>
+              <div class="component-link"></div>
+              <div class="component-price">$252.48</div>
+              <div class="component-notes">Maybe</div>
+            </div>
+      
+            <div class="component-row total-row">
+              <div class="component-name">
+                <span class="component-title">Potential Total</span>
+                <span class="component-desc">Complete system with all possible components</span>
+              </div>
+              <div class="component-link"></div>
+              <div class="component-price">$493.31</div>
+              <div class="component-notes"></div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="highlight-box">
+          "Precision components for augmented vision. The cost above is prior to considering additional support."
+        </div>
+      </div>
+  </section>
+  
+  <style>
+    .components-table {
+      background: rgba(20, 20, 20, 0.7);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(0, 230, 246, 0.2);
+      box-shadow: 0 10px 30px rgba(0, 230, 246, 0.05);
+      margin: 2rem 0;
+      font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    }
+    
+    .components-header {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      background: linear-gradient(90deg, rgba(0,230,246,0.1), rgba(0,255,162,0.1));
+      padding: 1rem 1.5rem;
+      font-weight: 600;
+      color: #00e6f6;
+      border-bottom: 1px solid rgba(0, 230, 246, 0.1);
+      align-items: center;
+    }
+    
+    .component-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      padding: 1rem 1.5rem;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    .component-row:hover {
+      background: rgba(0, 230, 246, 0.03);
+    }
+    
+    .component-row.total-row {
+      background: rgba(0, 230, 246, 0.1);
+      font-weight: 600;
+    }
+    
+    .component-name {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    
+    .component-title {
+      position: relative;
+      padding-left: 1.2rem;
+      font-weight: 500;
+      color: #ffffff;
+    }
+    
+    .component-title::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 6px;
+      height: 6px;
+      background: #00e6f6;
+      border-radius: 50%;
+      box-shadow: 0 0 5px #00e6f6;
+    }
+    
+    .component-desc {
+      font-size: 0.85rem;
+      color: #b0b0b0;
+      line-height: 1.4;
+      padding-left: 1.2rem;
+      opacity: 0.8;
+      position: relative;
+    }
+    
+    .component-desc::before {
+      content: '↳';
+      position: absolute;
+      left: 0;
+      color: rgba(0, 230, 246, 0.5);
+    }
+    
+    .component-link-btn {
+      background: rgba(0, 230, 246, 0.1);
+      color: #00e6f6;
+      padding: 0.4rem 0.8rem;
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: all 0.3s ease;
+      display: inline-block;
+      border: 1px solid rgba(0, 230, 246, 0.3);
+      text-align: center;
+      max-width: 80px;
+    }
+    
+    .component-link-btn:hover {
+      background: rgba(0, 230, 246, 0.2);
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(0, 230, 246, 0.2);
+    }
+    
+    .component-price {
+      font-weight: 500;
+      color: #ffffff;
+    }
+    
+    .component-notes {
+      font-size: 0.85rem;
+      color: #b0b0b0;
+      font-style: italic;
+      position: relative;
+      padding-left: 1rem;
+    }
+    
+    .component-notes::before {
+      content: '•';
+      position: absolute;
+      left: 0.3rem;
+      color: rgba(0, 230, 246, 0.7);
+    }
+    
+    .highlight-box {
+      background: rgba(0, 230, 246, 0.05);
+      border-left: 3px solid #00e6f6;
+      padding: 1rem;
+      margin: 1.5rem 0;
+      font-style: italic;
+      color: #b0b0b0;
+      border-radius: 0 4px 4px 0;
+    }
+    
+    @media (max-width: 768px) {
+      .components-header,
+      .component-row {
+        grid-template-columns: 1.5fr 1fr 1fr 0.8fr;
+        padding: 0.8rem 1rem;
+        font-size: 0.9rem;
+      }
+      
+      .component-link-btn {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.8rem;
+        max-width: 70px;
+      }
+      
+      .component-title {
+        padding-left: 1rem;
+      }
+      
+      .component-title::before {
+        width: 5px;
+        height: 5px;
+      }
+      
+      .component-desc {
+        font-size: 0.8rem;
+        padding-left: 1rem;
+      }
+      
+      .component-notes {
+        font-size: 0.8rem;
+      }
+    }
+  </style>
 
   <section class="section" id="market">
     <div class="section-container">
@@ -365,6 +1145,36 @@
         <li>Use funds for acquiring components, tech training, and unexpected issues (~$75 surplus planned)</li>
         <li>Already prepared a budget spreadsheet for all necessary parts and tools</li>
       </ul>
+    </div>
+  </section>
+
+  <section class="section" id="pitch">
+    <div class="section-container">
+      <h2>Pitch Deck</h2>
+      <div class="pitch-deck-container">
+        <div class="pitch-deck-card">
+          <h3>Interactive Pitch Deck</h3>
+          <p>Explore our comprehensive investor presentation with detailed market analysis, product specs, and financial projections</p>
+          
+          <div class="deck-preview">
+            <div class="deck-slides">
+              <div class="deck-slide">NeoVue</div>
+              <div class="deck-slide">Market Opportunity</div>
+              <div class="deck-slide">Technology</div>
+              <div class="deck-slide">Financials</div>
+            </div>
+          </div>
+          
+          <div class="deck-controls">
+            <div class="deck-dot active" data-slide="0"></div>
+            <div class="deck-dot" data-slide="1"></div>
+            <div class="deck-dot" data-slide="2"></div>
+            <div class="deck-dot" data-slide="3"></div>
+          </div>
+          
+          <a href="virtualpitchdeck.html" class="cta-button">View Full Pitch Deck</a>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -405,6 +1215,79 @@
     <p style="margin-top: 1rem; font-size: 0.8rem;">Crafted with precision for the future of augmented reality</p>
   </footer>
 
-</body>
+  <script>
+    // Deck slider functionality
+    const deckSlides = document.querySelector('.deck-slides');
+    const deckDots = document.querySelectorAll('.deck-dot');
+    let currentDeckSlide = 0;
+    
+    function showDeckSlide(n) {
+      deckSlides.style.transform = `translateX(-${n * 100}%)`;
+      
+      deckDots.forEach(dot => dot.classList.remove('active'));
+      deckDots[n].classList.add('active');
+      
+      currentDeckSlide = n;
+    }
+    
+    deckDots.forEach(dot => {
+      dot.addEventListener('click', function() {
+        const slideIndex = parseInt(this.getAttribute('data-slide'));
+        showDeckSlide(slideIndex);
+      });
+    });
+    
+    // Auto-rotate deck slides
+    setInterval(() => {
+      currentDeckSlide = (currentDeckSlide + 1) % deckDots.length;
+      showDeckSlide(currentDeckSlide);
+    }, 3000);
+    
+    // Animate elements when they come into view
+    const animateOnScroll = () => {
+      const elements = document.querySelectorAll('.section h2, .section li, .highlight-box, .pitch-deck-card, .contact-info a');
 
+        elements.forEach(element => {
+            const elementPosition = element.getBoundingClientRect().top;
+            const screenPosition = window.innerHeight / 1.3;
+            
+            if (elementPosition < screenPosition) {
+            element.style.animationPlayState = 'running';
+            }
+        });
+        };
+
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            
+            if (targetElement) {
+            window.scrollTo({
+                top: targetElement.offsetTop - 80,
+                behavior: 'smooth'
+            });
+            }
+        });
+        });
+
+        // Header scroll effect
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.3)';
+            header.style.background = 'rgba(10, 10, 10, 0.95)';
+        } else {
+            header.style.boxShadow = 'none';
+            header.style.background = 'rgba(10, 10, 10, 0.9)';
+        }
+        });
+    </script> 
+    </body> 
 </html>
